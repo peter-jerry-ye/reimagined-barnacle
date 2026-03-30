@@ -12,7 +12,8 @@ class Moon < Formula
     moon_home = var/"moon"
 
     # Bootstrap the toolchain using the official installer into Homebrew-managed var.
-    system({ "MOON_HOME" => moon_home.to_s }, "bash", libexec/"install-unix.sh", "latest")
+    ENV["MOON_HOME"] = moon_home.to_s
+    system "bash", libexec/"install-unix.sh", "latest"
 
     wrappers = %w[
       moon
