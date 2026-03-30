@@ -3,7 +3,7 @@ class Moon < Formula
   homepage "https://www.moonbitlang.com"
   url "https://cli.moonbitlang.com/install/unix.sh"
   version "latest"
-  sha256 :no_check
+  sha256 "2ef9218b787037880737337a06dc99287be6db07517d2815841b26b770637350"
   license "AGPL-3.0-or-later"
 
   def install
