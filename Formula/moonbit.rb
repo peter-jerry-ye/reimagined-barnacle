@@ -19,7 +19,8 @@ class Moonbit < Formula
     libexec.install "bin", "lib", "include", "CREDITS.md"
 
     resource("core").stage do
-      (libexec/"lib").install "core"
+      mkdir_p libexec/"lib/core"
+      cp_r Dir["*"], libexec/"lib/core"
     end
 
     ENV.prepend_path "PATH", libexec/"bin"
