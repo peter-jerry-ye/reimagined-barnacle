@@ -1,11 +1,11 @@
-class MoonbitATNightly < Formula
+class MoonbitNightly < Formula
   desc "Build system and package manager for the MoonBit language (nightly)"
   homepage "https://www.moonbitlang.com"
   url "https://cli.moonbitlang.com/binaries/0.8.4%2B99d7fb8c8-nightly/moonbit-darwin-aarch64.tar.gz"
   version "0.8.4+99d7fb8c8-nightly"
   sha256 "ca6437d00c552f355f0a0e1bea6a16acb2e7f1f19bd973088de4c14f37c9a69e"
   depends_on arch: :arm64
-  keg_only :versioned_formula
+  keg_only "it conflicts with moonbit"
 
   resource "core" do
     url "https://cli.moonbitlang.com/cores/core-0.8.4%2B99d7fb8c8-nightly.tar.gz"
@@ -65,7 +65,7 @@ class MoonbitATNightly < Formula
 
   def caveats
     <<~EOS
-      This versioned formula is keg-only, so Homebrew does not link it into:
+      This formula is keg-only, so Homebrew does not link it into:
         #{HOMEBREW_PREFIX}/bin
 
       Stable moonbit can stay installed and linked while this nightly is

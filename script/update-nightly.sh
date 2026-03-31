@@ -27,15 +27,15 @@ encoded_version=${version//+/%2B}
 binary_sha=$(shasum -a 256 "$binary_archive" | awk '{print $1}')
 core_sha=$(shasum -a 256 "$core_archive" | awk '{print $1}')
 
-cat > "$repo_root/Formula/moonbit@nightly.rb" <<EOF
-class MoonbitATNightly < Formula
+cat > "$repo_root/Formula/moonbit-nightly.rb" <<EOF
+class MoonbitNightly < Formula
   desc "Build system and package manager for the MoonBit language (nightly)"
   homepage "https://www.moonbitlang.com"
   url "https://cli.moonbitlang.com/binaries/${encoded_version}/moonbit-darwin-aarch64.tar.gz"
   version "${version}"
   sha256 "${binary_sha}"
   depends_on arch: :arm64
-  keg_only :versioned_formula
+  keg_only "it conflicts with moonbit"
 
   resource "core" do
     url "https://cli.moonbitlang.com/cores/core-${encoded_version}.tar.gz"
@@ -95,7 +95,7 @@ class MoonbitATNightly < Formula
 
   def caveats
     <<~EOS
-      This versioned formula is keg-only, so Homebrew does not link it into:
+      This formula is keg-only, so Homebrew does not link it into:
         #{HOMEBREW_PREFIX}/bin
 
       Stable moonbit can stay installed and linked while this nightly is
