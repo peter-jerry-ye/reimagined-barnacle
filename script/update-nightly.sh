@@ -104,7 +104,7 @@ class MoonbitNightly < Formula
 
       To temporarily make nightly the default in Homebrew's prefix:
         brew unlink moonbit
-        brew link --force moonbit@nightly
+        brew link --force moonbit-nightly
     EOS
   end
 
@@ -115,4 +115,4 @@ class MoonbitNightly < Formula
 end
 EOF
 
-printf 'Updated moonbit@nightly to %s\n' "$version"
+printf 'Updated moonbit-nightly to %s\n' "$version"

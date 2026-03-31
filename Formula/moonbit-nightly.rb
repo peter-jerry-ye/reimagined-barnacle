@@ -74,7 +74,7 @@ class MoonbitNightly < Formula
 
       To temporarily make nightly the default in Homebrew's prefix:
         brew unlink moonbit
-        brew link --force moonbit@nightly
+        brew link --force moonbit-nightly
     EOS
   end
 
