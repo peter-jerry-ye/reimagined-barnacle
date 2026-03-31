@@ -1,5 +1,5 @@
 class Moonbit < Formula
-  desc "MoonBit build system and package manager"
+  desc "Build system and package manager for the MoonBit language"
   homepage "https://www.moonbitlang.com"
   url "https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-aarch64.tar.gz"
   version "latest"
@@ -14,7 +14,8 @@ class Moonbit < Formula
   end
 
   def install
-    odie "moonbit currently supports macOS arm64 only" unless OS.mac? && Hardware::CPU.arm?
+    odie "moonbit currently supports macOS only" unless OS.mac?
+    odie "moonbit currently supports macOS arm64 only" unless Hardware::CPU.arm?
 
     libexec.install "bin", "lib", "include", "CREDITS.md"
 
@@ -28,7 +29,8 @@ class Moonbit < Formula
 
     ENV.prepend_path "PATH", libexec/"bin"
     system libexec/"bin/moon", "-C", libexec/"lib/core", "bundle", "--warn-list", "-a", "--all"
-    system libexec/"bin/moon", "-C", libexec/"lib/core", "bundle", "--warn-list", "-a", "--target", "wasm-gc", "--quiet"
+    system libexec/"bin/moon", "-C", libexec/"lib/core", "bundle",
+           "--warn-list", "-a", "--target", "wasm-gc", "--quiet"
 
     wrappers = %w[
       moon
@@ -68,6 +70,6 @@ class Moonbit < Formula
 
   test do
     assert_match "moon", shell_output("#{bin}/moon version")
-    assert_predicate libexec/"lib/core", :exist?
+    assert_path_exists libexec/"lib/core"
   end
 end
