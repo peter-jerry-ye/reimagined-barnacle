@@ -51,12 +51,6 @@ class MoonbitNightly < Formula
     wrappers.each do |name|
       (bin/name).write <<~SH
         #!/bin/bash
-        if [[ -z "${MOON_TOOLCHAIN_ROOT:-}" ]]; then
-          export MOON_TOOLCHAIN_ROOT="#{opt_libexec}"
-        fi
-        if [[ -z "${MOON_CORE_OVERRIDE:-}" ]]; then
-          export MOON_CORE_OVERRIDE="#{opt_libexec}/lib/core"
-        fi
         exec "#{opt_libexec}/bin/#{name}" "$@"
       SH
       chmod 0755, bin/name
