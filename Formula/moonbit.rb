@@ -1,11 +1,11 @@
 class Moonbit < Formula
   desc "Build system and package manager for the MoonBit language"
   homepage "https://www.moonbitlang.com"
-  version "v0.8.4+4d98d95d4"
   url "git@github.com:peter-jerry-ye/reimagined-barnacle.git",
-      tag: "v0.8.4+4d98d95d4",
-      revision: "e35b37aa5019b691333ec065027d232ac73ff520",
-      using: :git
+      tag:      "v0.8.4+4d98d95d4",
+      revision: "e35b37a70d5e7e211efa96a094d0039ae857c679",
+      using:    :git
+  version "0.8.4+4d98d95d4"
   depends_on arch: :arm64
 
   def install
