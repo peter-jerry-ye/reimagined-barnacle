@@ -1,0 +1,33 @@
+name: update-nightly
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-nightly:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: update formula
+        run: script/update-nightly.sh
+
+      - name: commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No nightly update"
+            exit 0
+          fi
+
+          version=$(ruby -e 'formula = File.read("Formula/moonbit@nightly.rb")[/^\s*version "([^"]+)"/, 1]; abort("missing version") unless formula; puts formula')
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/moonbit@nightly.rb
+          git commit -m "chore: bump moonbit@nightly to ${version}"
+          git push
