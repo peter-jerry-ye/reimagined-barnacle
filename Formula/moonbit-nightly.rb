@@ -1,15 +1,15 @@
 class MoonbitNightly < Formula
   desc "Build system and package manager for the MoonBit language (nightly)"
   homepage "https://www.moonbitlang.com"
-  url "https://cli.moonbitlang.com/binaries/0.8.4%2B99d7fb8c8-nightly/moonbit-darwin-aarch64.tar.gz"
-  version "0.8.4+99d7fb8c8-nightly"
-  sha256 "ca6437d00c552f355f0a0e1bea6a16acb2e7f1f19bd973088de4c14f37c9a69e"
+  url "https://cli.moonbitlang.com/binaries/0.8.4%2Be3622bbe2-nightly/moonbit-darwin-aarch64.tar.gz"
+  version "0.8.4+e3622bbe2-nightly"
+  sha256 "cd70bd3831890e0be9116c29ff1d4a96cc41fcff11fddf777a843542b3336ff3"
   depends_on arch: :arm64
   keg_only "it conflicts with moonbit"
 
   resource "core" do
-    url "https://cli.moonbitlang.com/cores/core-0.8.4%2B99d7fb8c8-nightly.tar.gz"
-    sha256 "1d555117e70b395a7ed208b976f77f934ebac2b933bed1414b892890ef7dc96c"
+    url "https://cli.moonbitlang.com/cores/core-0.8.4%2Be3622bbe2-nightly.tar.gz"
+    sha256 "657775f6fc6bf6a2ffba8416a8824444e630c457c23cacc829e2ad24497cb322"
   end
 
   def install
