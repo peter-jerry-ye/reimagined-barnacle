@@ -9,6 +9,6 @@ brew tap --custom-remote peter-jerry-ye/reimagined-barnacle git@github.com:peter
 brew install peter-jerry-ye/reimagined-barnacle/moonbit
 ```
 
-This package installs the `moon` executable and bundled core files from
-versioned artifacts vendored into this tap. It does not run the upstream shell
+This package installs the `moon` executable and bundled core files directly
+from versioned upstream release artifacts. It does not run the upstream shell
 installer.

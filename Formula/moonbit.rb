@@ -1,21 +1,24 @@
 class Moonbit < Formula
   desc "Build system and package manager for the MoonBit language"
   homepage "https://www.moonbitlang.com"
-  url "git@github.com:peter-jerry-ye/reimagined-barnacle.git",
-      tag:      "v0.8.4+4d98d95d4",
-      revision: "e35b37a70d5e7e211efa96a094d0039ae857c679",
-      using:    :git
+  url "https://cli.moonbitlang.com/binaries/0.8.4%2B4d98d95d4/moonbit-darwin-aarch64.tar.gz"
   version "0.8.4+4d98d95d4"
+  sha256 "f2adfbdfbf51e0d65788862ba0160390c0fbb0a4914bb4fc3e93de2768ce8e6c"
   depends_on arch: :arm64
+
+  resource "core" do
+    url "https://cli.moonbitlang.com/cores/core-0.8.4%2B4d98d95d4.tar.gz"
+    sha256 "1900367fef9d09f1e7dc6b0a5226daaf8ceaecaa84d0e3fa2bb66b0aba47f139"
+  end
 
   def install
     odie "moonbit currently supports macOS only" unless OS.mac?
     odie "moonbit currently supports macOS arm64 only" unless Hardware::CPU.arm?
 
-    artifact_dir = buildpath/"Artifacts"/"v0.8.4+4d98d95d4"
-    mkdir_p libexec/"lib"
-    system "tar", "xzf", artifact_dir/"moonbit-darwin-aarch64.tar.gz", "-C", libexec
-    system "tar", "xzf", artifact_dir/"core-v0.8.4+4d98d95d4.tar.gz", "-C", libexec/"lib"
+    libexec.install "bin", "lib", "include", "CREDITS.md"
+
+    resource("core").fetch
+    system "tar", "xzf", resource("core").cached_download, "-C", libexec/"lib"
 
     chmod 0755, Dir[libexec/"bin/*"]
     chmod 0755, libexec/"bin/internal/tcc"
