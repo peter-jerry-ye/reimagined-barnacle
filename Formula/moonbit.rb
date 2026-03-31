@@ -4,8 +4,6 @@ class Moonbit < Formula
   url "https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-aarch64.tar.gz"
   version "latest"
   sha256 "f2adfbdfbf51e0d65788862ba0160390c0fbb0a4914bb4fc3e93de2768ce8e6c"
-  license "AGPL-3.0-or-later"
-
   depends_on arch: :arm64
 
   resource "core" do
