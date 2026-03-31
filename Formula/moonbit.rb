@@ -18,10 +18,13 @@ class Moonbit < Formula
 
     libexec.install "bin", "lib", "include", "CREDITS.md"
 
-    resource("core").stage do
-      mkdir_p libexec/"lib/core"
-      cp_r Dir["*"], libexec/"lib/core"
-    end
+    resource("core").fetch
+    system "tar", "xzf", resource("core").cached_download, "-C", libexec/"lib"
+
+    chmod 0755, Dir[libexec/"bin/*"]
+    chmod 0755, libexec/"bin/internal/tcc"
+    chmod 0755, libexec/"bin/internal/moon-pilot/entrypoint.bash"
+    chmod 0755, Dir[libexec/"bin/internal/moon-pilot/bin/*"]
 
     ENV.prepend_path "PATH", libexec/"bin"
     system libexec/"bin/moon", "-C", libexec/"lib/core", "bundle", "--warn-list", "-a", "--all"
