@@ -1,10 +1,19 @@
 class Moonbit < Formula
   desc "Build system and package manager for the MoonBit language"
   homepage "https://www.moonbitlang.com"
-  url "https://cli.moonbitlang.com/binaries/0.8.4%2B4d98d95d4/moonbit-darwin-aarch64.tar.gz"
   version "0.8.4+4d98d95d4"
-  sha256 "f2adfbdfbf51e0d65788862ba0160390c0fbb0a4914bb4fc3e93de2768ce8e6c"
-  depends_on arch: :arm64
+
+  on_macos do
+    url "https://cli.moonbitlang.com/binaries/0.8.4%2B4d98d95d4/moonbit-darwin-aarch64.tar.gz"
+    sha256 "f2adfbdfbf51e0d65788862ba0160390c0fbb0a4914bb4fc3e93de2768ce8e6c"
+    depends_on arch: :arm64
+  end
+
+  on_linux do
+    url "https://cli.moonbitlang.com/binaries/0.8.4%2B4d98d95d4/moonbit-linux-x86_64.tar.gz"
+    sha256 "4d9f811fce8b10de29292f1b7606b8acf2adf0e84d42ea62ace8ca8600783c84"
+    depends_on arch: :x86_64
+  end
 
   resource "core" do
     url "https://cli.moonbitlang.com/cores/core-0.8.4%2B4d98d95d4.tar.gz"
@@ -12,8 +21,9 @@ class Moonbit < Formula
   end
 
   def install
-    odie "moonbit currently supports macOS only" unless OS.mac?
-    odie "moonbit currently supports macOS arm64 only" unless Hardware::CPU.arm?
+    odie "moonbit currently supports macOS arm64 and Linux x86_64 only" unless OS.mac? || OS.linux?
+    odie "moonbit currently supports macOS arm64 only" if OS.mac? && !Hardware::CPU.arm?
+    odie "moonbit currently supports Linux x86_64 only" if OS.linux? && !Hardware::CPU.intel?
 
     libexec.install "bin", "lib", "include", "CREDITS.md"
 

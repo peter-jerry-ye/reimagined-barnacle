@@ -1,6 +1,9 @@
 # reimagined-barnacle (temporary tap)
 
-Temporary Homebrew tap for MoonBit binary distribution on macOS arm64.
+Temporary Homebrew tap for MoonBit binary distribution on:
+
+- macOS arm64
+- Linux x86_64 (Linuxbrew, best-effort)
 
 Install:
 

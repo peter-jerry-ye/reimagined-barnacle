@@ -7,12 +7,15 @@ work_dir=$(mktemp -d)
 trap 'rm -rf "$work_dir"' EXIT
 
 binary_channel_url="https://cli.moonbitlang.com/binaries/nightly/moonbit-darwin-aarch64.tar.gz"
+binary_channel_linux_url="https://cli.moonbitlang.com/binaries/nightly/moonbit-linux-x86_64.tar.gz"
 core_channel_url="https://cli.moonbitlang.com/cores/core-nightly.tar.gz"
 
-binary_archive="$work_dir/moonbit.tar.gz"
+binary_archive="$work_dir/moonbit-darwin-aarch64.tar.gz"
+binary_archive_linux="$work_dir/moonbit-linux-x86_64.tar.gz"
 core_archive="$work_dir/core.tar.gz"
 
 curl -fsSL "$binary_channel_url" -o "$binary_archive"
+curl -fsSL "$binary_channel_linux_url" -o "$binary_archive_linux"
 curl -fsSL "$core_channel_url" -o "$core_archive"
 
 tar -xzf "$binary_archive" -C "$work_dir"
@@ -25,17 +28,27 @@ raw_version=$("$work_dir/bin/moonc" -v | head -1)
 version=$(printf '%s\n' "$raw_version" | sed -E 's/^v([^ ]+).*/\1/')
 encoded_version=${version//+/%2B}
 binary_sha=$(shasum -a 256 "$binary_archive" | awk '{print $1}')
+binary_sha_linux=$(shasum -a 256 "$binary_archive_linux" | awk '{print $1}')
 core_sha=$(shasum -a 256 "$core_archive" | awk '{print $1}')
 
 cat > "$repo_root/Formula/moonbit-nightly.rb" <<EOF
 class MoonbitNightly < Formula
   desc "Build system and package manager for the MoonBit language (nightly)"
   homepage "https://www.moonbitlang.com"
-  url "https://cli.moonbitlang.com/binaries/${encoded_version}/moonbit-darwin-aarch64.tar.gz"
   version "${version}"
-  sha256 "${binary_sha}"
-  depends_on arch: :arm64
   keg_only "it conflicts with moonbit"
+
+  on_macos do
+    url "https://cli.moonbitlang.com/binaries/${encoded_version}/moonbit-darwin-aarch64.tar.gz"
+    sha256 "${binary_sha}"
+    depends_on arch: :arm64
+  end
+
+  on_linux do
+    url "https://cli.moonbitlang.com/binaries/${encoded_version}/moonbit-linux-x86_64.tar.gz"
+    sha256 "${binary_sha_linux}"
+    depends_on arch: :x86_64
+  end
 
   resource "core" do
     url "https://cli.moonbitlang.com/cores/core-${encoded_version}.tar.gz"
@@ -43,8 +56,9 @@ class MoonbitNightly < Formula
   end
 
   def install
-    odie "moonbit currently supports macOS only" unless OS.mac?
-    odie "moonbit currently supports macOS arm64 only" unless Hardware::CPU.arm?
+    odie "moonbit currently supports macOS arm64 and Linux x86_64 only" unless OS.mac? || OS.linux?
+    odie "moonbit currently supports macOS arm64 only" if OS.mac? && !Hardware::CPU.arm?
+    odie "moonbit currently supports Linux x86_64 only" if OS.linux? && !Hardware::CPU.intel?
 
     libexec.install "bin", "lib", "include", "CREDITS.md"
 
