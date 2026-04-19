@@ -6,19 +6,19 @@ class MoonbitNightly < Formula
 
   on_macos do
     url "https://cli.moonbitlang.com/binaries/0.9.0%2Be8688da64-nightly/moonbit-darwin-aarch64.tar.gz"
-    sha256 "684eafea6d0025b206429209e9f8a105180ffaf4e08c58cbb88cd986da40e4bd"
+    sha256 "caf48c80d27c1399b602fedd1cb653b0c137d64a1cd8ae5f35fb4b1928b64d37"
     depends_on arch: :arm64
   end
 
   on_linux do
     url "https://cli.moonbitlang.com/binaries/0.9.0%2Be8688da64-nightly/moonbit-linux-x86_64.tar.gz"
-    sha256 "2b7dba3f0904f0690a130fe097b5641420ce3f309667f160c6171a1a19a7790a"
+    sha256 "3e049f327179362210c4a3ebf66d7ef7bbc17507938556eaba5b20205bb1941b"
     depends_on arch: :x86_64
   end
 
   resource "core" do
     url "https://cli.moonbitlang.com/cores/core-0.9.0%2Be8688da64-nightly.tar.gz"
-    sha256 "e5e86fc840aad8584d3d99ee18327211f3c99f7d2078a83b14f48915cc0f664d"
+    sha256 "4579d39c408fb4f432f01d8884de3d34ecc784480b57b205183c516a2d84fc7d"
   end
 
   def install
