@@ -1,24 +1,24 @@
 class MoonbitNightly < Formula
   desc "Build system and package manager for the MoonBit language (nightly)"
   homepage "https://www.moonbitlang.com"
-  version "0.10.15+c82494b64-nightly"
+  version "0.10.16+64c2263fc-nightly"
   keg_only "it conflicts with moonbit"
 
   on_macos do
-    url "https://cli.moonbitlang.com/binaries/0.10.15%2Bc82494b64-nightly/moonbit-darwin-aarch64.tar.gz"
-    sha256 "2ce212a23742148ea2bf9827b28f75bf4b009fcc435916d459fe9b80b530e510"
+    url "https://cli.moonbitlang.com/binaries/0.10.16%2B64c2263fc-nightly/moonbit-darwin-aarch64.tar.gz"
+    sha256 "f07c64b47a52a109c6feb72d67cdd447a07997582abd64f34ddb528bbed662b0"
     depends_on arch: :arm64
   end
 
   on_linux do
-    url "https://cli.moonbitlang.com/binaries/0.10.15%2Bc82494b64-nightly/moonbit-linux-x86_64.tar.gz"
-    sha256 "40d1d12d2f851868b8fa7c8d19105b94e63d4747529cf46c104f1683c9ab94ef"
+    url "https://cli.moonbitlang.com/binaries/0.10.16%2B64c2263fc-nightly/moonbit-linux-x86_64.tar.gz"
+    sha256 "3f2d747d9bb1e3d5fbad93de952bea7f6358ebfb3053b29a423c5272cef0da82"
     depends_on arch: :x86_64
   end
 
   resource "core" do
-    url "https://cli.moonbitlang.com/cores/core-0.10.15%2Bc82494b64-nightly.tar.gz"
-    sha256 "21785f97731285185bb9709a103081597f27413a9b47f8e2c7c13a2ac2be909d"
+    url "https://cli.moonbitlang.com/cores/core-0.10.16%2B64c2263fc-nightly.tar.gz"
+    sha256 "891a127b5c486f21706d502c5101e5e76d7b8fc2a0bb139d0eb916f8cdc4dd0d"
   end
 
   def install
